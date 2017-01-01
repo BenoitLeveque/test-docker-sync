@@ -1,4 +1,11 @@
-test_docker_sync
-================
+start container :
 
-A Symfony project created on December 29, 2016, 8:33 am.
+```
+docker-sync-stack start
+```
+
+Connect in ssh with:
+
+```bash
+docker exec -u www-data -it `docker ps | grep "php:7.1-fpm" | awk '{print $1}'`  /bin/bash
+```
