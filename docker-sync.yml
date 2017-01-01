@@ -1,0 +1,21 @@
+options:
+    compose-dev-file-path: './docker-compose-mac.yml'
+    verbose: false
+
+syncs:
+    app:
+        src: '.'
+        dest: '/var/www/html'
+        sync_strategy: 'unison'
+        sync_host_port: 10872
+        sync_user: 'www-data'
+        sync_userid: '33'
+        sync_args:
+            - "-prefer newer"
+            - "-copyonconflict"
+            - "-silent"
+            - "-ignore='Path .idea'"          # no need to send PHPStorm config to container
+            - "-ignore='Path .git'"           # ignore the main .git repo
+            - "-ignore='BelowPath .git'"      # also ignore .git repos in subfolders such as in composer vendor dirs
+            - "-ignore='Path var/cache/*'"    # don't share the cache
+            - "-ignore='Path var/sessions/*'" # we don't need the sessions locally
